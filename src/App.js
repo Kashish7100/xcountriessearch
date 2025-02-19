@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function Countries() {
-  const [countries, setCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [countries, setCountries] = useState([]); 
+  const [filteredCountries, setFilteredCountries] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,8 +17,8 @@ function Countries() {
         if (!response.ok) throw new Error("Failed to fetch data");
         const jsonData = await response.json();
 
-        setCountries(jsonData);
-        setFilteredCountries(jsonData);
+        setCountries(jsonData); 
+        setFilteredCountries(jsonData); 
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -30,12 +30,18 @@ function Countries() {
     fetchData();
   }, []);
 
+  // ✅ FIX: Ensure search filters correctly
   const handleSearch = (event) => {
-    const term = event.target.value.toLowerCase();
+    const term = event.target.value.toLowerCase().trim();
     setSearchTerm(term);
 
+    if (term === "") {
+      setFilteredCountries(countries); // Show all countries if input is empty
+      return;
+    }
+
     const filtered = countries.filter((country) =>
-      country.name.toLowerCase().includes(term)
+      country.common.toLowerCase().includes(term)
     );
 
     setFilteredCountries(filtered);
@@ -56,9 +62,9 @@ function Countries() {
       <div className="country-list">
         {filteredCountries.length > 0 ? (
           filteredCountries.map((country) => (
-            <div key={country.code} className="countryCard">
+            <div key={country.code} className="countryCard">  {/* ✅ MUST BE "countryCard" */}
               <img
-                src={country.png}
+                src={country.png} 
                 alt={`Flag of ${country.common}`}
                 className="flag"
               />
@@ -66,7 +72,7 @@ function Countries() {
             </div>
           ))
         ) : (
-          <p>No results found</p>
+          <p>No results found</p> 
         )}
       </div>
     </div>
