@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./App.css"; // Add your styles here
+import "./App.css";
 
 function Countries() {
   const [countries, setCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]); // For search results
+  const [filteredCountries, setFilteredCountries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // Search input state
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,12 +14,14 @@ function Countries() {
         const response = await fetch(
           "https://countries-search-data-prod-812920491762.asia-south1.run.app/countries"
         );
+        if (!response.ok) throw new Error("Failed to fetch data");
         const jsonData = await response.json();
+
         setCountries(jsonData);
-        setFilteredCountries(jsonData); // Initialize with all countries
+        setFilteredCountries(jsonData);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error("Error fetching data:", error);
         setError(error);
         setLoading(false);
       }
@@ -29,12 +31,13 @@ function Countries() {
   }, []);
 
   const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    setSearchTerm(searchTerm);
-    
+    const term = event.target.value.toLowerCase();
+    setSearchTerm(term);
+
     const filtered = countries.filter((country) =>
-      country.common.toLowerCase().includes(searchTerm)
+      country.name.toLowerCase().includes(term)
     );
+
     setFilteredCountries(filtered);
   };
 
