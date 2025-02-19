@@ -42,7 +42,7 @@ function Countries() {
   if (error) return <div>Error loading data. Please try again later.</div>;
 
   return (
-    <div className="countryCard">
+    <div className="Countries">
       <input
         type="text"
         placeholder="Search for a country..."
@@ -53,7 +53,7 @@ function Countries() {
       <div className="country-list">
         {filteredCountries.length > 0 ? (
           filteredCountries.map((country) => (
-            <div key={country.code} className="Countries">
+            <div key={country.code} className="countryCard">
               <img
                 src={country.png}
                 alt={`Flag of ${country.common}`}
