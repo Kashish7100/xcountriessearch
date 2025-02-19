@@ -17,7 +17,7 @@
   justify-content: center;
 }
 
-.countryCard {  /* ✅ Test expects this exact class name */
+.countryCard { 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +32,7 @@
   margin: 10px;
 }
 
-.flag {  /* ✅ Test expects <img> for flag */
+.flag { 
   width: 100px;
   height: 100px;
   border: 1px solid #ddd;

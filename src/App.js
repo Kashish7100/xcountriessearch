@@ -62,13 +62,13 @@ function Countries() {
       <div className="country-list">
         {filteredCountries.length > 0 ? (
           filteredCountries.map((country) => (
-            <div key={country.code} className="countryCard">  {/* ✅ MUST BE "countryCard" */}
+            <div key={country.code} className="countryCard">
               <img
                 src={country.png} 
                 alt={`Flag of ${country.common}`}
                 className="flag"
               />
-              <h3>{country.common}</h3>
+              <h2>{country.common}</h2>
             </div>
           ))
         ) : (
